@@ -30,6 +30,9 @@ spring:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:tasks}
     username: ${DB_USER_NAME:tasks}
     password: ${DB_PASSWORD:tasks}
+  jpa:
+    hibernate:
+      ddl-auto: update
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}${DB_OPTIONS:}
