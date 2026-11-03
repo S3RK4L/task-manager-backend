@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,4 +71,19 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * Deletes the task with the given ID. Returns 404 if the task doesn't exist.
+     */
+    @DeleteMapping (value = "/tasks/{id}", produces = "application/json")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()) {
+            taskRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
