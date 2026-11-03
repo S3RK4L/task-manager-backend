@@ -40,8 +40,8 @@ public class Task {
     }
 
     // No need for a setter for id since it's auto-generated
-    public String getId() {
-        return id + "";
+    public Long getId() {
+        return id;
     }   
 
     public String getTitle() {
