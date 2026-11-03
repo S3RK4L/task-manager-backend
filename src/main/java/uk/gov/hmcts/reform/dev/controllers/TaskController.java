@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import uk.gov.hmcts.reform.dev.models.Task;
 import uk.gov.hmcts.reform.dev.repositories.TaskRepository;
@@ -30,7 +32,7 @@ public class TaskController {
      * Creates a new task and returns it with a 201 Created status.
      */
     @PostMapping(value = "/tasks", produces = "application/json")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         Task savedTask = taskRepository.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
@@ -60,7 +62,7 @@ public class TaskController {
      * Updates the status of a task with the given ID. Returns 404 if the task doesn't exist.
      */
     @PatchMapping(value = "/tasks/{id}", produces = "application/json")
-    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @RequestBody UpdateStatusRequest request) {
+    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @Valid @RequestBody UpdateStatusRequest request) {
         Optional<Task> taskOptional = taskRepository.findById(id);
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();

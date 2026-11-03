@@ -1,3 +1,5 @@
 package uk.gov.hmcts.reform.dev.dto;
 
-public record UpdateStatusRequest(String status) {}
+import jakarta.validation.constraints.NotBlank;
+
+public record UpdateStatusRequest(@NotBlank(message = "Status is required") String status) {}

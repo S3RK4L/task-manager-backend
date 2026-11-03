@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,11 +23,14 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @NotBlank(message = "Title is required")
     private String title;
     private String description;
     @Column(nullable = false)
+    @NotBlank(message = "Status is required")
     private String status;
     @Column(nullable = false)
+    @NotNull(message = "Due date is required")
     private LocalDateTime dueDate;
 
     public Task(String title, String description, String status, LocalDateTime dueDate) {
