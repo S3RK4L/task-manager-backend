@@ -9,10 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -21,7 +19,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String title;
     private String description;
@@ -29,6 +27,17 @@ public class Task {
     private String status;
     @Column(nullable = false)
     private LocalDateTime dueDate;
+
+    public Task(String title, String description, String status, LocalDateTime dueDate) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.dueDate = dueDate;
+    }
+
+    public Task() {
+        // Default constructor for JPA
+    }
 
     // No need for a setter for id since it's auto-generated
     public String getId() {
