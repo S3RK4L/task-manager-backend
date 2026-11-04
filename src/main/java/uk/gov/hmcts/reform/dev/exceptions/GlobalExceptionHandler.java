@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,5 +23,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(Map.of("errors", errors));
         
     }
-    
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+        public ResponseEntity<Map<String, List<String>>> handleUnreadable(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest()
+        .body(Map.of("errors", List.of("Status must be one of: TODO, IN_PROGRESS, COMPLETED")));
+    }
 }

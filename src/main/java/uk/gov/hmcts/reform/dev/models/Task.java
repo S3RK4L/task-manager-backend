@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,13 +29,14 @@ public class Task {
     private String title;
     private String description;
     @Column(nullable = false)
-    @NotBlank(message = "Status is required")
-    private String status;
+    @NotNull(message = "Status is required")
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
     @Column(nullable = false)
     @NotNull(message = "Due date is required")
     private LocalDateTime dueDate;
 
-    public Task(String title, String description, String status, LocalDateTime dueDate) {
+    public Task(String title, String description, TaskStatus status, LocalDateTime dueDate) {
         this.title = title;
         this.description = description;
         this.status = status;
@@ -65,11 +68,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 
