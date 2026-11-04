@@ -55,7 +55,7 @@ public class TaskController {
      */
     @GetMapping(value = "/tasks", produces = "application/json")
     public ResponseEntity<List<Task>> getAllTasks() {
-        return ResponseEntity.ok(taskRepository.findAll());
+        return ResponseEntity.ok(taskRepository.findAllByOrderByDueDateAsc());
     }
 
     /**
