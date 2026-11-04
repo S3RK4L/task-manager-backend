@@ -29,7 +29,6 @@ sourceSets {
       runtimeClasspath += main.output
       srcDir file('src/functionalTest/java')
     }
-    resources.srcDir file('src/functionalTest/resources')
   }
 
   integrationTest {
@@ -38,7 +37,6 @@ sourceSets {
       runtimeClasspath += main.output
       srcDir file('src/integrationTest/java')
     }
-    resources.srcDir file('src/integrationTest/resources')
   }
 
   smokeTest {
@@ -47,7 +45,6 @@ sourceSets {
       runtimeClasspath += main.output
       srcDir file('src/smokeTest/java')
     }
-    resources.srcDir file('src/smokeTest/resources')
   }
 }
 
@@ -181,6 +178,8 @@ dependencies {
     exclude group: 'junit', module: 'junit'
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
+  
+  integrationTestRuntimeOnly 'com.h2database:h2'
 }
 
 bootJar {
@@ -189,11 +188,6 @@ bootJar {
   manifest {
     attributes('Implementation-Version': project.version.toString())
   }
-}
-
-// Gradle 7.x issue, workaround from: https://github.com/gradle/gradle/issues/17236#issuecomment-894768083
-rootProject.tasks.named("processSmokeTestResources") {
-  duplicatesStrategy = 'include'
 }
 
 wrapper {
