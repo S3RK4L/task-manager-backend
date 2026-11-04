@@ -62,7 +62,8 @@ public class TaskController {
      * Updates the status of a task with the given ID. Returns 404 if the task doesn't exist.
      */
     @PatchMapping(value = "/tasks/{id}", produces = "application/json")
-    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, @Valid @RequestBody UpdateStatusRequest request) {
+    public ResponseEntity<Task> updateTaskStatus(@PathVariable Long id, 
+        @Valid @RequestBody UpdateStatusRequest request) {
         Optional<Task> taskOptional = taskRepository.findById(id);
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();
